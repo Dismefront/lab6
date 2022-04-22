@@ -1,9 +1,6 @@
 plugins {
-    application
+    java
 }
-
-group = "org.example"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -16,4 +13,8 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.withType<JavaCompile>() {
+    options.encoding = "UTF-8"
 }

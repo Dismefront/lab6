@@ -1,4 +1,5 @@
 plugins {
+    java
     application
 }
 
@@ -21,10 +22,15 @@ application {
     mainClass.set("main.Main")
 }
 
-tasks.jar {
+
+tasks.create<Jar>("fatJar") {
+    tasks["build"].dependsOn(this)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes["Main-Class"] = application.mainClass.get()
     }
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    with(tasks.jar.get() as CopySpec)
 }
 
 tasks.withType<JavaCompile> {
