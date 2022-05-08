@@ -1,6 +1,8 @@
 package storage;
 
-public enum Country {
+import java.io.Serializable;
+
+public enum Country implements Serializable {
     RUSSIA,
     ITALY,
     SOUTH_KOREA;

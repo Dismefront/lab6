@@ -1,6 +1,8 @@
 package storage;
 
-public class Coordinates implements Validateable {
+import java.io.Serializable;
+
+public class Coordinates implements Validateable, Serializable {
     private Float x; //Максимальное значение поля: 46, Поле не может быть null
     private Integer y; //Поле не может быть null
 

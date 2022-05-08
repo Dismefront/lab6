@@ -1,23 +1,28 @@
 package command;
 
+import correspondency.ResponseCo;
 import datastructures.Pair;
 import exceptions.CommandDoesNotExistException;
 
 import java.util.ArrayList;
 
-public class Command {
+public abstract class Command {
 
     protected String action;
     protected ArrayList<String> args;
     private String command;
+    private ResponseCo response;
 
-    /**
-     * constructor takes the command and invokes distribution method
-     * @throws CommandDoesNotExistException
-     */
+    public void setResponse(ResponseCo response) {
+        this.response = response;
+    }
 
-    public void setCommand(String command) {
-        this.command = command;
+    public ResponseCo getResponse() {
+        return this.response;
+    }
+
+    public void setCommand(String commandLine) {
+        this.command = commandLine;
         try {
             this.distributeCommand();
         } catch (CommandDoesNotExistException e) {
@@ -25,14 +30,6 @@ public class Command {
         }
     }
 
-    public String description() {
-        return "Command";
-    }
-
-    /**
-     * if the command is not blank, then it gets split into its action and arguments
-     * @throws CommandDoesNotExistException
-     */
     private void distributeCommand() throws CommandDoesNotExistException {
         checkCommandCorrectness(this.command);
         Pair<String, ArrayList<String>> p = getSplit(this.command);
@@ -49,12 +46,7 @@ public class Command {
             throw new CommandDoesNotExistException();
     }
 
-    /**
-     * takes a string and returns a pair of command and argument list
-     * @param command
-     * @return
-     */
-    private static Pair<String, ArrayList<String>> getSplit(String command) {
+    public static Pair<String, ArrayList<String>> getSplit(String command) {
         String[] parsed = command.trim().split(" ");
         ArrayList<String> na = new ArrayList<>();
         for (int i = 1; i < parsed.length; i++)
@@ -62,8 +54,6 @@ public class Command {
         return new Pair<>(parsed[0], na);
     }
 
-    public void execute() throws CommandDoesNotExistException {
-        throw new CommandDoesNotExistException();
-    }
+    public abstract void execute();
 
 }

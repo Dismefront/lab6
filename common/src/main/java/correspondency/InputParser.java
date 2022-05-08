@@ -1,4 +1,4 @@
-package command;
+package correspondency;
 
 import storage.*;
 
@@ -14,7 +14,7 @@ public class InputParser {
         return name == null || name.isEmpty();
     }
 
-    public static Worker getWorkerFromInput() throws NoSuchElementException {
+    public static Worker getWorkerFromInput(Scanner source) throws NoSuchElementException {
         String name;
         Coordinates coords;
         Long salary;
@@ -27,7 +27,7 @@ public class InputParser {
         Position pos;
         Status st;
 
-        Scanner in = new Scanner(System.in);
+        Scanner in = source;
 
         System.out.println("Введите имя:");
 

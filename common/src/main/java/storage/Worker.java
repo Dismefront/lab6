@@ -46,6 +46,11 @@ public class Worker implements Collectionable, Serializable {
     }
 
     @Override
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Override
     public long getSalary() {
         return this.salary;
     }

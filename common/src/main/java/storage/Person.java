@@ -1,6 +1,8 @@
 package storage;
 
-public class Person implements Validateable {
+import java.io.Serializable;
+
+public class Person implements Validateable, Serializable {
     private int weight; //Значение поля должно быть больше 0
     private Color eyeColor; //Поле может быть null
     private Color hairColor; //Поле может быть null
