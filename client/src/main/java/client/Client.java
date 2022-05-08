@@ -104,7 +104,7 @@ public class Client {
 
     private void getResponse(SelectionKey key) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
-        ByteBuffer buffer = ByteBuffer.allocate(2048);
+        ByteBuffer buffer = ByteBuffer.allocate(4096);
         int read = channel.read(buffer);
         if (read == -1) {
             channel.close();
@@ -114,6 +114,10 @@ public class Client {
         System.arraycopy(buffer.array(), 0, data, 0, read);
         ResponseCo res = ObjectSerializer.fromByteArray(data);
 
+        if (res == null) {
+            System.out.println("Buffer out of bounds");
+            return;
+        }
         System.out.println(res.getResponseMessage());
         if (res.isExit())
             System.exit(0);
