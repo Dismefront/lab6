@@ -26,6 +26,11 @@ public class Main {
         client.setWorkingFile(workingFile);
         while (true) {
             client.start();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                return;
+            }
         }
     }
 

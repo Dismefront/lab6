@@ -1,10 +1,11 @@
 package server;
 
-import collection.WorkerCollection;
 import command.*;
 import correspondency.CommandType;
 import correspondency.RequestCo;
 import correspondency.ResponseCo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import serialization.ObjectSerializer;
 
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class SocketServer {
     private SocketChannel session;
     private String workingFile = null;
 
+    private static final Logger logger = LoggerFactory.getLogger(SocketServer.class);
+
     public SocketServer(String host, int port) {
         this.address = new InetSocketAddress(host, port);
     }
@@ -32,8 +35,7 @@ public class SocketServer {
         ssc.bind(this.address);
         ssc.configureBlocking(false);
         ssc.register(this.selector, SelectionKey.OP_ACCEPT);
-
-        System.out.println("Server started...");
+        logger.info("Server started...");
 
         new Thread(ServerConsole::read).start();
 
@@ -47,7 +49,7 @@ public class SocketServer {
                         this.accept(key);
                     }
                     catch (IOException ex) {
-                        System.out.println("Client cannot be accepted");
+                        logger.info("Client cannot be accepted");
                         break;
                     }
                 }
@@ -56,7 +58,7 @@ public class SocketServer {
                         this.read(key);
                     }
                     catch (IOException ex) {
-                        System.out.println("Client disconnected");
+                        logger.info("Client disconnected");
                         this.session.close();
                         break;
                     }
@@ -74,7 +76,7 @@ public class SocketServer {
         if (this.session != null)
             this.session.close();
         this.session = channel;
-        System.out.println("accepted " + this.session);
+        logger.info("accepted " + this.session);
     }
 
     private void read(SelectionKey key) throws IOException {
@@ -132,7 +134,7 @@ public class SocketServer {
         }
         sendResponse(key, res);
 
-        System.out.println("Got: " + req.getLine());
+        logger.info("Got: " + req.getLine());
     }
 
     private void sendResponse(SelectionKey key,
