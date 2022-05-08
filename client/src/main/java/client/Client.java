@@ -52,6 +52,7 @@ public class Client {
                 SelectionKey.OP_READ |
                         SelectionKey.OP_WRITE |
                         SelectionKey.OP_CONNECT);
+        System.out.println("Connected");
         while (true) {
             selector.select();
             for (SelectionKey key : selector.selectedKeys()) {

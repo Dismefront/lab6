@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String ... args) throws IOException {
+    public static void main(String ... args) {
         ArrayList<Worker> workers = null;
         String workingFile = "default.txt";
         if (args.length != 0) {
@@ -25,7 +25,12 @@ public class Main {
             client.setObjectsFromFile(workers);
         client.setWorkingFile(workingFile);
         while (true) {
-            client.start();
+            try {
+                client.start();
+            }
+            catch (Exception ex) {
+                System.out.println("Waiting server...");
+            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
