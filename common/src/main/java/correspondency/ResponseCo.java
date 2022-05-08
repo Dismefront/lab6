@@ -10,6 +10,15 @@ public class ResponseCo implements Serializable {
     private CommandType type;
     private Long id;
     private String execute_file;
+    private boolean isExit = false;
+
+    public boolean isExit() {
+        return isExit;
+    }
+
+    public void setExit(boolean exit) {
+        isExit = exit;
+    }
 
     public String getExecute_file() {
         return execute_file;

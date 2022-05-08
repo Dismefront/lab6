@@ -115,6 +115,8 @@ public class Client {
         ResponseCo res = ObjectSerializer.fromByteArray(data);
 
         System.out.println(res.getResponseMessage());
+        if (res.isExit())
+            System.exit(0);
         if (res.isObjectNeeded()) {
             sendObjectRequest(key, res);
         }
