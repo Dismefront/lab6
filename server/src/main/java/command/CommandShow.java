@@ -4,6 +4,8 @@ import collection.CollectionData;
 import correspondency.ResponseCo;
 import storage.Worker;
 
+import java.util.stream.Collectors;
+
 @PointCommand(name="show", description = "вывести в стандартный поток вывода все " +
         "элементы коллекции в строковом представлении")
 public class CommandShow extends Command {
@@ -13,8 +15,11 @@ public class CommandShow extends Command {
         String response = "";
         if (CollectionData.collection.isEmpty())
             response = "The collection is empty";
-        for (Worker it : CollectionData.collection)
-            response += it + "\n";
+        else {
+            response = CollectionData.collection
+                    .getCollection().stream().map(Worker::toString)
+                    .collect(Collectors.joining("\n"));
+        }
         setResponse(new ResponseCo(response));
     }
 }

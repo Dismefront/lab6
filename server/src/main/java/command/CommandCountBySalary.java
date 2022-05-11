@@ -21,11 +21,8 @@ public class CommandCountBySalary extends Command {
             setResponse(new ResponseCo(response));
             return;
         }
-        int cnt = 0;
-        for (Worker it : CollectionData.collection) {
-            if (it.getSalary() == r)
-                cnt++;
-        }
+        long cnt = CollectionData.collection.getCollection().stream()
+                .filter(x -> (x.getSalary() == r)).count();
         response = "The number of elements with " + r + " salary: " + cnt;
         setResponse(new ResponseCo(response));
     }

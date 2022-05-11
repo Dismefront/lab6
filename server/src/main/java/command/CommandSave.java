@@ -1,8 +1,10 @@
 package command;
 
 import collection.CollectionData;
+import correspondency.ResponseCo;
 import storage.Worker;
 
+import javax.xml.ws.Response;
 import java.io.FileOutputStream;
 
 @PointCommand(name="save", description = "сохранить коллекцию в файл")
@@ -51,6 +53,10 @@ public class CommandSave extends Command {
 
     @Override
     public void execute() {
+        setResponse(new ResponseCo("No permission"));
+    }
+
+    public void save() {
         if (path == null)
             return;
         String data = "id,name,coordinates/x,coordinates/y,creationDate,salary," +
@@ -70,4 +76,5 @@ public class CommandSave extends Command {
             System.out.println("Couldn't work with file");
         }
     }
+
 }

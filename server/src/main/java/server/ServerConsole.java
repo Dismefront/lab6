@@ -12,10 +12,11 @@ public class ServerConsole {
             try {
                 String line = sc.nextLine();
                 if (line.equals("save")) {
-                    new CommandSave().execute();
+                    new CommandSave().save();
                 }
             }
             catch (Exception ex) {
+                new CommandSave().save();
                 System.exit(0);
             }
         }
